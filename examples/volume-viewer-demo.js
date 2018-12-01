@@ -38,6 +38,17 @@ $(function() {
   /////////////////////////////////////
   window.viewer = BrainBrowser.VolumeViewer.start("brainbrowser", function(viewer) {
     var loading_div = $("#loading");
+    // $("#volume-file").show();
+    // $("#brainbrowser").hide();
+    // $("#sync-volumes-wrapper").hide();
+    // $("#volume-file").hide();
+    // $("#brainbrowser").show();
+    //
+    //
+    // $("#sync-volumes-wrapper").show();
+    viewer.clearVolumes();
+
+
 
     ///////////////////////////
     // Set up global UI hooks.
@@ -46,7 +57,7 @@ $(function() {
     $("#volume-type").change(function() {
       $("#sync-volumes-wrapper").hide();
       $("#volume-file").hide();
-
+      $("#brainbrowser").show();
       if ($(this).val() === "functional_minc") {
         viewer.clearVolumes();
         viewer.loadVolume({
@@ -93,6 +104,7 @@ $(function() {
           }
         });
       } else if ($(this).val() === "NIfTI-1"){
+        console.log("We are in the statement");
         $("#sync-volumes-wrapper").show();
         viewer.clearVolumes();
         viewer.loadVolumes({
@@ -120,6 +132,36 @@ $(function() {
               viewer_insert_class: "overlay-viewer-display"
             }
           }
+        });
+      } else if ($(this).val() === "siena"){
+        //console.log("We are in the if statement")
+        $("#sync-volumes-wrapper").show();
+        viewer.clearVolumes();
+        viewer.loadVolumes({
+          volumes: [
+            {
+              type: "nifti1",
+              nii_url: "models/siena_output.nii",
+              template: {
+                element_id: "volume-ui-template",
+                viewer_insert_class: "volume-viewer-display"
+              }
+            }
+            // {
+            //   type: 'nifti1',
+            //   nii_url: "models/structural.nii",
+            //   template: {
+            //     element_id: "volume-ui-template",
+            //     viewer_insert_class: "volume-viewer-display"
+            //   }
+            // }
+          ],
+          // overlay: {
+          //   template: {
+          //     element_id: "overlay-ui-template",
+          //     viewer_insert_class: "overlay-viewer-display"
+          //   }
+          // }
         });
       } else if ($(this).val() === "MGH"){
         $("#sync-volumes-wrapper").show();
@@ -268,6 +310,8 @@ $(function() {
     // Load a new model from a NIfTI-1 file that the user has
     // selected.
     $("#volume-file-nifti1-submit").click(function() {
+      $("#brainbrowser").show();
+      $("#volume-file").hide();
       viewer.clearVolumes();
       viewer.loadVolume({
         type: "nifti1",
@@ -890,33 +934,58 @@ $(function() {
     /////////////////////
     // Load the volumes.
     /////////////////////
+    // viewer.loadVolumes({
+    //   volumes: [
+    //     {
+    //       type: "nifti1",
+    //       nii_url: "models/siena_output.nii",
+    //       template: {
+    //         element_id: "volume-ui-template",
+    //         viewer_insert_class: "volume-viewer-display"
+    //       }
+    //     }
+    //     // {
+    //     //   type: 'nifti1',
+    //     //   nii_url: "models/structural.nii",
+    //     //   template: {
+    //     //     element_id: "volume-ui-template",
+    //     //     viewer_insert_class: "volume-viewer-display"
+    //     //   }
+    //     // }
+    //   ],
+    //   // overlay: {
+    //   //   template: {
+    //   //     element_id: "overlay-ui-template",
+    //   //     viewer_insert_class: "overlay-viewer-display"
+    //   //   }
+    //   // }
+    // });
+
     viewer.loadVolumes({
       volumes: [
         {
-          type: "minc",
-          header_url: "models/structural1.mnc.header",
-          raw_data_url: "models/structural1.mnc.raw",
-          template: {
-            element_id: "volume-ui-template",
-            viewer_insert_class: "volume-viewer-display"
-          }
-        },
-        {
-          type: 'minc',
-          header_url: "models/structural2.mnc.header",
-          raw_data_url: "models/structural2.mnc.raw",
+          type: "nifti1",
+          nii_url: "models/siena_output.nii",
           template: {
             element_id: "volume-ui-template",
             viewer_insert_class: "volume-viewer-display"
           }
         }
+        // {
+        //   type: 'nifti1',
+        //   nii_url: "models/flow.nii",
+        //   template: {
+        //     element_id: "volume-ui-template",
+        //     viewer_insert_class: "volume-viewer-display"
+        //   }
+        // }
       ],
-      overlay: {
-        template: {
-          element_id: "overlay-ui-template",
-          viewer_insert_class: "overlay-viewer-display"
-        }
-      },
+      // overlay: {
+      //   template: {
+      //     element_id: "overlay-ui-template",
+      //     viewer_insert_class: "overlay-viewer-display"
+      //   }
+      // },
       complete: function() {
         loading_div.hide();
         $("#brainbrowser-wrapper").slideDown({duration: 600});
