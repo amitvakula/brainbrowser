@@ -771,23 +771,19 @@ $(function() {
         },
         blend: function() {
           viewer.annotations.setMarkerRadius(1);
-          viewer.loadModelFromURL("models/brain-surface.obj", {
-            format: "mniobj",
-            parse: { split: true },
+          viewer.loadModelFromURL("models/lh.lh_th.asc", {
+            format: "freesurferasc",
             complete: function() {
               $("#vertex-data-wrapper").show();
               $("#pick-value-wrapper").show();
-              viewer.loadIntensityDataFromURL("models/cortical-thickness.txt", {
-                name: "Cortical Thickness",
-                complete: hideLoading,
-                cancel: defaultCancelOptions(current_request),
-                blend: true
-              });
-              viewer.loadIntensityDataFromURL("models/atlas-values.txt", {
-                complete: hideLoading,
-                cancel: defaultCancelOptions(current_request),
-                blend: true
-              });
+            },
+            cancel: defaultCancelOptions(current_request)
+          });
+          viewer.loadModelFromURL("models/lh.lh_vc.asc", {
+            format: "freesurferasc",
+            complete: function() {
+              $("#vertex-data-wrapper").show();
+              $("#pick-value-wrapper").show();
             },
             cancel: defaultCancelOptions(current_request)
           });
