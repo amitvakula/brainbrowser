@@ -958,7 +958,7 @@ $(function() {
     });
 
     // Load first model.
-    $("a.example[data-example-name=atlas]").click();
+    $("a.example[data-example-name=blend]").click();
 
     // If two color maps are loaded to be blended, create
     // slider to control the blending ratios.
