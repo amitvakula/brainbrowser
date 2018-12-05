@@ -787,6 +787,7 @@ $(function() {
             },
             cancel: defaultCancelOptions(current_request)
           });
+          viewer.setClearColor(parseInt("0xffffff", 16));
         },
         car: function() {
           viewer.annotations.setMarkerRadius(0.3);
