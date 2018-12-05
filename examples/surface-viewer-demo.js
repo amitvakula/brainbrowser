@@ -774,16 +774,14 @@ $(function() {
           viewer.loadModelFromURL("models/lh.lh_th.asc", {
             format: "freesurferasc",
             complete: function() {
-              $("#vertex-data-wrapper").show();
-              $("#pick-value-wrapper").show();
+              $('#loading').hide();
             },
             cancel: defaultCancelOptions(current_request)
           });
           viewer.loadModelFromURL("models/lh.lh_vc.asc", {
             format: "freesurferasc",
             complete: function() {
-              $("#vertex-data-wrapper").show();
-              $("#pick-value-wrapper").show();
+              $('#loading').hide();
             },
             cancel: defaultCancelOptions(current_request)
           });
